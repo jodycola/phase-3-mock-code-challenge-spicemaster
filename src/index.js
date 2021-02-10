@@ -6,7 +6,7 @@ const list = document.querySelector(".ingredients-list")
 const titleForm = document.querySelector("#update-form")
 const ingredientForm = document.querySelector("#ingredient-form")
 
-// FIRST DELIVERABLE
+// DELIVERABLE #1
 fetch((spiceUrl) + "/1")
     .then(response => response.json())
     .then(spice => showSpiceBlend(spice))
@@ -37,7 +37,7 @@ function renderIngredients(ingredient){
     list.append(li)
 }
 
-// SECOND DELIVERABLE
+// DELIVERABLE #2
 titleForm.addEventListener("submit", updateTitle)
 
 function updateTitle(e){
@@ -60,7 +60,7 @@ function updateTitle(e){
     })
 }
 
-// THIRD DELIVERABLE
+// DELIVERABLE #3
 ingredientForm.addEventListener("submit", updateIngredient)
 
 function updateIngredient(e){
@@ -68,5 +68,24 @@ function updateIngredient(e){
     let newLi = document.createElement("li")
     newLi.innerText = e.target.name.value
     list.append(newLi)
+}
 
+// ADVANCED DELIVERABLE #1
+const save = document.createElement("button")
+save.innerText = "Save Ingredient"
+ingredientForm.append(save)
+
+ingredientForm.addEventListener("submit", updateIngredients)
+
+function updateIngredients(e){
+    // Way to get the input value
+    let newIngredient = event.target.childNodes[5].value
+    let newSpiceId = detail.dataset.id
+    fetch(`${ingredientsUrl}`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name: newIngredient, spiceblendId: newSpiceId })
+    })
 }
